@@ -32,7 +32,18 @@ export const useFetch = () => {
 
     return fetch(requestUrl, { ...requestBody, headers, signal })
       .then((response) => {
-        if (!response.ok) throw response;
+
+        if (response.status === 401) {
+          const loginUrl = response.headers.get('Location');
+          if (loginUrl) {
+            window.location.href = loginUrl;
+            return; // Return early to prevent further execution
+          }
+        }
+
+        if (!response.ok) {
+          throw response; // Throw the response object as an exception
+        }
 
         const contentType = response.headers.get('content-type');
         const contentDisposition = response.headers.get('content-disposition');
