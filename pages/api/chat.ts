@@ -61,8 +61,10 @@ const handler = async (req: Request): Promise<Response> => {
             ?.split('=')[1]
         : '';
 
+    const cookieAuthorizationToSend = cookieAuthorization || '';
 
-    const stream = await OpenAIStream(model, promptToSend, temperatureToUse, key, cookieAuthorization, messagesToSend, conversationId, tokenCount);
+
+    const stream = await OpenAIStream(model, promptToSend, temperatureToUse, key, cookieAuthorizationToSend, messagesToSend, conversationId, tokenCount);
 
     return new Response(stream);
   } catch (error) {
