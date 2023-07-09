@@ -52,7 +52,17 @@ const handler = async (req: Request): Promise<Response> => {
 
     encoding.free();
 
-    const stream = await OpenAIStream(model, promptToSend, temperatureToUse, key, userToken, messagesToSend, conversationId, tokenCount);
+    const { headers } = req;
+    const cookieHeader = headers.get('Cookie');
+
+    const cookieAuthorization = cookieHeader
+        ? cookieHeader.split('; ')
+            .find((cookie) => cookie.startsWith('Authorization'))
+            ?.split('=')[1]
+        : '';
+
+
+    const stream = await OpenAIStream(model, promptToSend, temperatureToUse, key, cookieAuthorization, messagesToSend, conversationId, tokenCount);
 
     return new Response(stream);
   } catch (error) {

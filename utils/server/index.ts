@@ -28,7 +28,7 @@ export const OpenAIStream = async (
   systemPrompt: string,
   temperature : number,
   key: string,
-  userToken: string,
+  cookieAuthorization: string,
   messages: Message[],
   conversationId: string,
   promptTokens: number
@@ -40,12 +40,9 @@ export const OpenAIStream = async (
   const res = await fetch(url, {
     headers: {
       'Content-Type': 'application/json',
-      'USER_TOKEN': userToken,
       'CONVERSATION_ID': conversationId,
       'PROMPT_TOKENS': promptTokens + '',
-      ...(OPENAI_API_TYPE === 'openai' && {
-        Authorization: `Bearer ${key ? key : process.env.OPENAI_API_KEY}`
-      }),
+      'Authorization': cookieAuthorization,
       ...(OPENAI_API_TYPE === 'azure' && {
         'api-key': `${key ? key : process.env.OPENAI_API_KEY}`
       }),

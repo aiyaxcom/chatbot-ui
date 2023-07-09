@@ -13,7 +13,12 @@ const handler = async (req: Request): Promise<Response> => {
       userToken: string;
     };
 
+    const { headers } = req;
+    const cookieAuthorization = headers.get('Cookie')?.split('; ')
+        .find((cookie) => cookie.startsWith('Authorization'))?.split('=')[1];
+
     let url = `${OPENAI_API_HOST}/v1/models`;
+
     if (OPENAI_API_TYPE === 'azure') {
       url = `${OPENAI_API_HOST}/openai/deployments?api-version=${OPENAI_API_VERSION}`;
     }
@@ -22,9 +27,7 @@ const handler = async (req: Request): Promise<Response> => {
       headers: {
         'Content-Type': 'application/json',
         'USER_TOKEN': userToken,
-        ...(OPENAI_API_TYPE === 'openai' && {
-          Authorization: `Bearer ${key ? key : process.env.OPENAI_API_KEY}`
-        }),
+        'Authorization': `${cookieAuthorization}`,
         ...(OPENAI_API_TYPE === 'azure' && {
           'api-key': `${key ? key : process.env.OPENAI_API_KEY}`
         }),
