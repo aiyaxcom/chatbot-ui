@@ -28,6 +28,8 @@ import { PluginSelect } from './PluginSelect';
 import { PromptList } from './PromptList';
 import { VariableModal } from './VariableModal';
 
+import { CHATBOT_BRAND_NAME, CHATBOT_HOME_PAGE } from '@/utils/app/const';
+
 interface Props {
   onSend: (message: Message, plugin: Plugin | null) => void;
   onRegenerate: () => void;
@@ -381,16 +383,16 @@ export const ChatInput = ({
       </div>
       <div className="px-3 pt-2 pb-3 text-center text-[12px] text-black/50 dark:text-white/50 md:px-4 md:pt-3 md:pb-6">
         <a
-          href="https://github.com/mckaywrigley/chatbot-ui"
+          href={CHATBOT_HOME_PAGE}
           target="_blank"
           rel="noreferrer"
           className="underline"
         >
-          ChatBot UI
+          {CHATBOT_BRAND_NAME}
         </a>
         .{' '}
         {t(
-          "Chatbot UI is an advanced chatbot kit for OpenAI's chat models aiming to mimic ChatGPT's interface and functionality.",
+          "AIYAX aims to provide a stable ChatGPT-like service. It connects to OpenAI and strives to be easy to use, stable in service.",
         )}
       </div>
     </div>
