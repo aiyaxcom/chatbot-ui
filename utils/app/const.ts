@@ -25,3 +25,6 @@ export const CHATBOT_BRAND_NAME =
 
 export const CHATBOT_HOME_PAGE =
     process.env.CHATBOT_HOME_PAGE || 'https://aiyax.com';
+
+export const CHATBOT_USER_MANUAL_PAGE =
+    process.env.CHATBOT_USER_MANUAL_PAGE || 'https://aiyax.com/announcement/chatgpt-user-manual/';

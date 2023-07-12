@@ -1,4 +1,4 @@
-import { IconFileExport, IconSettings, IconHome } from '@tabler/icons-react';
+import {IconFileExport, IconSettings, IconHome, IconNotebook} from '@tabler/icons-react';
 import { useContext, useState } from 'react';
 
 import { useTranslation } from 'next-i18next';
@@ -13,7 +13,7 @@ import { SidebarButton } from '../../Sidebar/SidebarButton';
 import ChatbarContext from '../Chatbar.context';
 import { ClearConversations } from './ClearConversations';
 import { PluginKeys } from './PluginKeys';
-import {CHATBOT_HOME_PAGE} from "@/utils/app/const";
+import {CHATBOT_HOME_PAGE, CHATBOT_USER_MANUAL_PAGE} from "@/utils/app/const";
 
 export const ChatbarSettings = () => {
   const { t } = useTranslation('sidebar');
@@ -57,11 +57,17 @@ export const ChatbarSettings = () => {
         onClick={() => setIsSettingDialog(true)}
       />
 
-        <SidebarButton
-            text={t('Home page')}
-            icon={<IconHome size={18} />}
-            onClick={ () => window.location.href = CHATBOT_HOME_PAGE}
-        />
+      <SidebarButton
+          text={t('User manual')}
+          icon={<IconNotebook size={18} />}
+          onClick={ () => window.open(CHATBOT_USER_MANUAL_PAGE, '_blank')}
+      />
+
+      <SidebarButton
+          text={t('Home page')}
+          icon={<IconHome size={18} />}
+          onClick={ () => window.open(CHATBOT_HOME_PAGE, '_blank')}
+      />
 
     </div>
   );
