@@ -14,16 +14,11 @@ const useErrorService = () => {
           ? null
           : ({
               title: t('Error fetching models.'),
-              code: error.status || 'unknown',
-              messageLines: error.statusText
-                ? [error.statusText]
+              code: error.code || 'unknown',
+              messageLines: error && error.message
+                ? [error.message]
                 : [
-                    t(
-                      'Make sure your OpenAI API key is set in the bottom left of the sidebar.',
-                    ),
-                    t(
-                      'If you completed this step, OpenAI may be experiencing issues.',
-                    ),
+                    '服务器错误，请稍后再试或反馈网站运营人员（微信公众号：writer1024）',
                   ],
             } as ErrorMessage);
       },

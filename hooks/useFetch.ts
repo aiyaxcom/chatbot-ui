@@ -30,7 +30,7 @@ export const useFetch = () => {
         : { 'Content-type': 'application/json' }),
     };
 
-    return fetch(requestUrl, { ...requestBody, headers, signal })
+    return fetch(requestUrl, { ...requestBody, headers, signal, credentials: 'include' })
       .then((response) => {
 
         if (response.status === 401) {

@@ -11,14 +11,10 @@ const useApiService = () => {
 
   const getModels = useCallback(
     (params: GetModelsRequestProps, signal?: AbortSignal) => {
-      let selectedConversation:any = localStorage.getItem('selectedConversation') || {};
-      return fetchService.post<GetModelsRequestProps>(`/api/models`, {
-        body: {
-          key: params.key,
-          userToken: localStorage.getItem('userToken')
-        },
+      return fetchService.get<GetModelsRequestProps>(process.env.NEXT_PUBLIC_MODELS_URL || `/openai/v1/models`, {
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
         },
         signal,
       });
