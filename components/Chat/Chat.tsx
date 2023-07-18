@@ -97,12 +97,11 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
         const chatBody: ChatBody = {
           model: updatedConversation.model,
           messages: updatedConversation.messages,
-          key: apiKey,
-          userToken: localStorage.getItem('userToken') || '',
           prompt: updatedConversation.prompt,
           temperature: updatedConversation.temperature,
           conversationId: selectedConversation.id,
         };
+        // Frontend logic
         const endpoint = getEndpoint(plugin);
         let body;
         if (!plugin) {
@@ -124,6 +123,7 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
           headers: {
             'Content-Type': 'application/json',
           },
+          credentials: 'include',
           signal: controller.signal,
           body,
         });

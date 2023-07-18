@@ -13,9 +13,10 @@ export const config = {
   runtime: 'edge',
 };
 
+// Backend handler
 const handler = async (req: Request): Promise<Response> => {
   try {
-    const { model, messages, key, userToken, prompt, temperature, conversationId } = (await req.json()) as ChatBody;
+    const { model, messages, prompt, temperature, conversationId } = (await req.json()) as ChatBody;
 
     await init((imports) => WebAssembly.instantiate(wasm, imports));
     const encoding = new Tiktoken(
@@ -64,7 +65,7 @@ const handler = async (req: Request): Promise<Response> => {
     const cookieAuthorizationToSend = cookieAuthorization || '';
 
 
-    const stream = await OpenAIStream(model, promptToSend, temperatureToUse, key, cookieAuthorizationToSend, messagesToSend, conversationId, tokenCount);
+    const stream = await OpenAIStream(model, promptToSend, temperatureToUse, cookieAuthorizationToSend, messagesToSend, conversationId, tokenCount);
 
     return new Response(stream);
   } catch (error) {

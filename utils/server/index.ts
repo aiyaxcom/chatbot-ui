@@ -27,7 +27,6 @@ export const OpenAIStream = async (
   model: OpenAIModel,
   systemPrompt: string,
   temperature : number,
-  key: string,
   cookieAuthorization: string,
   messages: Message[],
   conversationId: string,
@@ -43,9 +42,7 @@ export const OpenAIStream = async (
       'CONVERSATION_ID': conversationId,
       'PROMPT_TOKENS': promptTokens + '',
       'Authorization': cookieAuthorization,
-      ...(OPENAI_API_TYPE === 'azure' && {
-        'api-key': `${key ? key : process.env.OPENAI_API_KEY}`
-      }),
+      'api-key': process.env.OPENAI_API_KEY || '',
       ...((OPENAI_API_TYPE === 'openai' && OPENAI_ORGANIZATION) && {
         'OpenAI-Organization': OPENAI_ORGANIZATION,
       }),
