@@ -164,7 +164,14 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
             const { value, done: doneReading } = await reader.read();
             done = doneReading;
             const chunkValue = decoder.decode(value);
-            text += chunkValue;
+            const values = chunkValue.split('data:');
+
+            values.forEach((val) => {
+              const formattedValue = val.replace(/\n\n$/, '');
+              if (formattedValue !== '' && formattedValue !== '[DONE]') {
+                text += formattedValue;
+              }
+            });
             if (isFirst) {
               isFirst = false;
               const updatedMessages: Message[] = [
