@@ -3,5 +3,9 @@
   "Theme": "主题",
   "Dark mode": "深色模式",
   "Light mode": "浅色模式",
-  "Save": "保存"
+  "Save": "保存",
+  "Close": "关闭",
+  "Scan the QR code below using Wechat to make a donation:": "使用微信扫描下方二维码进行捐赠：",
+  "Donate": "捐赠",
+  "AIYAX is committed to providing free GPT-3.5 services in the long term. The costs for API calls have been covered independently. Donations are appreciated to support the operators.": "AIYAX致力于长期提供免费GPT-3.5服务，接口调用费用一直独立承担，捐赠以支持运营者。"
 }
