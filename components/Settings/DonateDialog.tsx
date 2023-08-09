@@ -21,7 +21,7 @@ export const DonateDialog: FC<Props> = ({ open, onClose }) => {
                 <div className="flex items-center justify-center min-h-screen px-4 text-center sm:block sm:p-0">
                     <div className="hidden sm:inline-block sm:h-screen sm:align-middle" aria-hidden="true" />
 
-                    <div className="inline-block max-h-[400px] transform rounded-lg border border-gray-300 bg-white px-4 pt-5 pb-4 text-left align-bottom shadow-xl transition-all dark:bg-[#202123] sm:my-8 sm:max-h-[650px] sm:w-full sm:max-w-lg sm:p-6 sm:align-middle">
+                    <div className="inline-block max-h-[650px] transform rounded-lg border border-gray-300 bg-white px-4 pt-5 pb-4 text-left align-bottom shadow-xl transition-all dark:bg-[#202123] sm:my-8 sm:max-h-[650px] sm:w-full sm:max-w-lg sm:p-6 sm:align-middle">
                         <div className="text-lg pb-4 font-bold text-black dark:text-neutral-200">
                             {t('Donate')}
                         </div>
