@@ -101,6 +101,17 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
           temperature: updatedConversation.temperature,
           conversationId: selectedConversation.id,
         };
+
+        // 判断chatBody的大小是否超过100k
+        const chatBodySize = JSON.stringify(chatBody).length;
+        if (chatBodySize > 100000) {
+            homeDispatch({ field: 'loading', value: false });
+            homeDispatch({ field: 'messageIsStreaming', value: false });
+            toast.error('该聊天过大，请创建新聊天再继续提问');
+            return;
+        }
+
+
         // Frontend logic
         const endpoint = getEndpoint(plugin);
         let body;
