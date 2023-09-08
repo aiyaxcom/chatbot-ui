@@ -1,12 +1,13 @@
 import {
     IconFileExport,
     IconSettings,
-    IconHome,
+    IconVip, IconVipOff,
     IconNotebook,
-    IconPhotoDollar,
-    IconZoomMoney, IconReportMoney, IconPigMoney
+    IconPigMoney
 } from '@tabler/icons-react';
 import { useContext, useState } from 'react';
+
+import Cookies from 'js-cookie';
 
 import { useTranslation } from 'next-i18next';
 
@@ -16,17 +17,17 @@ import { SettingDialog } from '@/components/Settings/SettingDialog';
 import { DonateDialog } from '@/components/Settings/DonateDialog';
 
 import { Import } from '../../Settings/Import';
-import { Key } from '../../Settings/Key';
 import { SidebarButton } from '../../Sidebar/SidebarButton';
 import ChatbarContext from '../Chatbar.context';
 import { ClearConversations } from './ClearConversations';
-import { PluginKeys } from './PluginKeys';
 import {CHATBOT_HOME_PAGE, CHATBOT_USER_MANUAL_PAGE} from "@/utils/app/const";
+import {VipDialog} from "@/components/Settings/VipDialog";
 
 export const ChatbarSettings = () => {
   const { t } = useTranslation('sidebar');
   const [isSettingDialogOpen, setIsSettingDialog] = useState<boolean>(false);
   const [isDonateDialogOpen, setIsDonateDialog] = useState<boolean>(false);
+    const [isVip, setIsVip] = useState<boolean>(false);
 
   const {
     state: {
@@ -46,6 +47,9 @@ export const ChatbarSettings = () => {
     handleApiKeyChange,
   } = useContext(ChatbarContext);
 
+  const nickname = Cookies.get('nickname') || '匿名用户';
+  const member = Cookies.get('member') === 'true';
+
   return (
     <div className="flex flex-col items-center space-y-1 border-t border-white/20 pt-1 text-sm">
       {conversations.length > 0 ? (
@@ -62,7 +66,7 @@ export const ChatbarSettings = () => {
 
       <SidebarButton
           text={t('User manual')}
-          icon={<IconNotebook size={18} />}
+          icon={<IconNotebook size={18}/>}
           onClick={ () => window.open(CHATBOT_USER_MANUAL_PAGE, '_blank')}
       />
 
@@ -73,8 +77,14 @@ export const ChatbarSettings = () => {
       />
 
       <SidebarButton
+        text={nickname}
+        icon={member ? <IconVip size={18} color="gold"/> : <IconVipOff size={18}/>}
+        onClick={() => setIsVip(true)}
+      />
+
+      <SidebarButton
           text={t('Donate')}
-          icon={<IconPigMoney size={18} />}
+          icon={<IconPigMoney size={18} color="green"/>}
           onClick={() => setIsDonateDialog(true)}
       />
 
@@ -91,6 +101,13 @@ export const ChatbarSettings = () => {
                 setIsDonateDialog(false);
             }}
       />
+
+        <VipDialog
+            open={isVip}
+            onClose={() => {
+                setIsVip(false);
+            }}
+        />
       {/*<SidebarButton*/}
       {/*    text={t('Home page')}*/}
       {/*    icon={<IconHome size={18} />}*/}
