@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'next-i18next';
 import Cookies from 'js-cookie';
-import { IconVip, IconVipOff, IconX } from '@tabler/icons-react';
+import { IconVip, IconVipOff, IconX, IconMoodBoy } from '@tabler/icons-react';
 
 interface Props {
     open: boolean;
@@ -12,7 +12,7 @@ export const VipDialog: FC<Props> = ({ open, onClose }) => {
     const { t } = useTranslation('settings');
 
     const nickname = Cookies.get('nickname') || '匿名用户';
-    const avatar = Cookies.get('avatarUrl') || 'default_avatar.jpg';
+    const avatar = Cookies.get('avatarUrl');
     const member = Cookies.get('member') === 'true';
     const expiryTimestamp = Cookies.get('expireTime');
     const expiryDate = expiryTimestamp ? new Date(Number(expiryTimestamp)).toLocaleString() : '无';
@@ -33,7 +33,9 @@ export const VipDialog: FC<Props> = ({ open, onClose }) => {
                         </button>
 
                         <div className="flex items-center space-x-2 mb-6">
-                            <img src={avatar} alt="User Avatar" className="rounded-full" width="50" height="50" />
+                            {avatar ? (
+                                <img src={avatar} alt="User Avatar" className="rounded-full" width="50" height="50" />
+                            ) : (<IconMoodBoy size={50} />)}
                             <div className="text-xl font-bold text-black dark:text-neutral-200">{nickname}</div>
                         </div>
                         {member ? (
@@ -51,9 +53,9 @@ export const VipDialog: FC<Props> = ({ open, onClose }) => {
                         <div className="mb-6">
                             <p className="mb-4">{member ? "续费会员：" : "开通会员："}</p>
                             <div className="flex flex-col space-y-2">
-                                <div className="flex justify-between items-center space-x-2 border p-2 rounded hover:bg-gray-500 transition-colors">周卡 <span>25元</span> <button className="btn">购买</button></div>
-                                <div className="flex justify-between items-center space-x-2 border p-2 rounded hover:bg-gray-500 transition-colors">月卡 <span>80元</span> <button className="btn">购买</button></div>
-                                <div className="flex justify-between items-center space-x-2 border p-2 rounded hover:bg-gray-500 transition-colors">季卡 <span>200元</span> <button className="btn">购买</button></div>
+                                <div className="flex justify-between items-center space-x-2 border p-2 rounded hover:bg-green-500 transition-colors">周卡 <span>25元</span> <button className="btn">购买</button></div>
+                                <div className="flex justify-between items-center space-x-2 border p-2 rounded hover:bg-green-500 transition-colors">月卡 <span>80元</span> <button className="btn">购买</button></div>
+                                <div className="flex justify-between items-center space-x-2 border p-2 rounded hover:bg-green-500 transition-colors">季卡 <span>200元</span> <button className="btn">购买</button></div>
                             </div>
                         </div>
 
