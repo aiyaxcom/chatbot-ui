@@ -65,7 +65,7 @@ export const VipDialog: FC<Props> = ({ open, onClose }) => {
                             </div>
                         </div>
 
-                        <a href={`${serverUrl}/account`} target="_blank" rel="noopener noreferrer" className="hover:underline">进入我的账户</a>
+                        <a href={`${serverUrl}/account/`} target="_blank" rel="noopener noreferrer" className="hover:underline">进入我的账户</a>
                     </div>
                 </div>
             </div>
