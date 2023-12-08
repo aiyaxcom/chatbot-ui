@@ -61,7 +61,7 @@ export const VipDialog: FC<Props> = ({ open, onClose }) => {
                             <div className="flex flex-col space-y-2">
                                 <div className="flex justify-between items-center space-x-2 border p-2 rounded hover:bg-green-500 transition-colors">日卡 <span>9元</span> <a href={`${serverUrl}/purchase/product/1`} className="btn" target="_blank">购买</a></div>
                                 <div className="flex justify-between items-center space-x-2 border p-2 rounded hover:bg-green-500 transition-colors">周卡 <span>39元</span> <a href={`${serverUrl}/purchase/product/2`} className="btn" target="_blank">购买</a></div>
-                                <div className="flex justify-between items-center space-x-2 border p-2 rounded hover:bg-green-500 transition-colors">月卡 <span>130元</span> <a href={`${serverUrl}/purchase/product/3`} className="btn" target="_blank">购买</a></div>
+                                <div className="flex justify-between items-center space-x-2 border p-2 rounded hover:bg-green-500 transition-colors">月卡 <span>99元</span> <a href={`${serverUrl}/purchase/product/3`} className="btn" target="_blank">购买</a></div>
                             </div>
                         </div>
 
