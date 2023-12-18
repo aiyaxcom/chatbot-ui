@@ -27,7 +27,7 @@ export const ChatbarSettings = () => {
   const { t } = useTranslation('sidebar');
   const [isSettingDialogOpen, setIsSettingDialog] = useState<boolean>(false);
   const [isDonateDialogOpen, setIsDonateDialog] = useState<boolean>(false);
-    const [isVip, setIsVip] = useState<boolean>(false);
+    const [isVipOpen, setIsVipOpen] = useState<boolean>(false);
 
   const {
     state: {
@@ -67,16 +67,16 @@ export const ChatbarSettings = () => {
           onClick={ () => window.open(CHATBOT_USER_MANUAL_PAGE, '_blank')}
       />
 
+        <SidebarButton
+            text={t('Membership')}
+            icon={<IconVip size={18} color="gold"/>}
+            onClick={() => setIsVipOpen(true)}
+        />
+
       <SidebarButton
         text={t('Settings')}
         icon={<IconSettings size={18} />}
         onClick={() => setIsSettingDialog(true)}
-      />
-
-      <SidebarButton
-        text={nickname}
-        icon={member ? <IconVip size={18} color="gold"/> : <IconVipOff size={18}/>}
-        onClick={() => setIsVip(true)}
       />
 
       <SidebarButton
@@ -100,16 +100,11 @@ export const ChatbarSettings = () => {
       />
 
         <VipDialog
-            open={isVip}
+            open={isVipOpen}
             onClose={() => {
-                setIsVip(false);
+                setIsVipOpen(false);
             }}
         />
-      {/*<SidebarButton*/}
-      {/*    text={t('Home page')}*/}
-      {/*    icon={<IconHome size={18} />}*/}
-      {/*    onClick={ () => window.open(CHATBOT_HOME_PAGE, '_blank')}*/}
-      {/*/>*/}
 
     </div>
   );

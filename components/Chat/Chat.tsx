@@ -145,6 +145,10 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
           const { message } = responseData;
           const errorMessage = message || response.statusText;
           toast.error(errorMessage);
+          // if (errorMessage.contains('收费模型需要开通会员才可使用')) {
+          //   // 设置ChatbarSettings的isVip为true
+          //   setIsVip(true);
+          // }
           return;
         }
         const data = response.body;
