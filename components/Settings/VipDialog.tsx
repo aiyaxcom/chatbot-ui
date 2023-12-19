@@ -41,7 +41,7 @@ export const VipDialog: FC<Props> = ({ open, onClose }) => {
                         </div>
 
                         <div className="mb-6">
-                            <p className={member ? "text-green-500" : "text-yellow-500"}>{member ? "可享每日20次GPT-4对话" : "开通会员可享每日20次GPT-4对话" }</p>
+                            <p className={member ? "text-green-500" : "text-yellow-500"}>{member ? "可享每日20次GPT-4（含GPT-4-Turbo）对话" : "开通会员可享每日20次GPT-4（含GPT-4-Turbo）对话" }</p>
                         </div>
 
                         {member ? (
