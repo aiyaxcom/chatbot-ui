@@ -63,10 +63,15 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
   const [showSettings, setShowSettings] = useState<boolean>(false);
   const [showScrollDownButton, setShowScrollDownButton] =
     useState<boolean>(false);
+  const [showMoreOptions, setShowMoreOptions] = useState<boolean>(false);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const toggleMoreOptions = () => {
+    setShowMoreOptions(!showMoreOptions);
+  };
 
   const handleSend = useCallback(
     async (message: Message, deleteCount = 0, plugin: Plugin | null = null) => {
@@ -440,27 +445,31 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
                   {models.length > 0 && (
                     <div className="flex h-full flex-col space-y-4 rounded-lg border border-neutral-200 p-4 dark:border-neutral-600">
                       <ModelSelect />
+                      <button onClick={toggleMoreOptions}>高级选项</button>
+                      {showMoreOptions && (
+                          <>
+                            <SystemPrompt
+                              conversation={selectedConversation}
+                              prompts={prompts}
+                              onChangePrompt={(prompt) =>
+                                handleUpdateConversation(selectedConversation, {
+                                  key: 'prompt',
+                                  value: prompt,
+                                })
+                              }
+                            />
 
-                      <SystemPrompt
-                        conversation={selectedConversation}
-                        prompts={prompts}
-                        onChangePrompt={(prompt) =>
-                          handleUpdateConversation(selectedConversation, {
-                            key: 'prompt',
-                            value: prompt,
-                          })
-                        }
-                      />
-
-                      <TemperatureSlider
-                        label={t('Temperature')}
-                        onChangeTemperature={(temperature) =>
-                          handleUpdateConversation(selectedConversation, {
-                            key: 'temperature',
-                            value: temperature,
-                          })
-                        }
-                      />
+                            <TemperatureSlider
+                              label={t('Temperature')}
+                              onChangeTemperature={(temperature) =>
+                                handleUpdateConversation(selectedConversation, {
+                                  key: 'temperature',
+                                  value: temperature,
+                                })
+                              }
+                            />
+                          </>
+                      )}
                     </div>
                   )}
                 </div>
