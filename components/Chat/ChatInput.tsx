@@ -362,7 +362,7 @@ export const ChatInput = ({
         </a>
         .{' '}
         {t(
-          "AIYAX aims to provide a stable ChatGPT-like service. It connects to OpenAI and strives to be easy to use, stable in service.",
+          "AIYAX aims to provide a stable AI chat service. It strives to be easy to use, stable in service.",
         )}
       </div>
     </div>

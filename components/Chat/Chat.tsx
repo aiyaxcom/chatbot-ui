@@ -433,7 +433,7 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
                         <Spinner size="16px" className="mx-auto" />
                       </div>
                     ) : (
-                      'AIYAX Chatbot'
+                      'AI聊天'
                     )}
                   </div>
 
