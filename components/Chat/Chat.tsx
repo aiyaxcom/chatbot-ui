@@ -445,7 +445,7 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
                   {models.length > 0 && (
                     <div className="flex h-full flex-col space-y-4 rounded-lg border border-neutral-200 p-4 dark:border-neutral-600">
                       <ModelSelect />
-                      <button onClick={toggleMoreOptions}>高级选项</button>
+                      <button className=" text-gray-800 dark:text-gray-100" onClick={toggleMoreOptions}>高级选项</button>
                       {showMoreOptions && (
                           <>
                             <SystemPrompt
