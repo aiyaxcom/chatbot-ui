@@ -29,7 +29,7 @@ export const VipDialog: FC<Props> = ({ open, onClose }) => {
                     <div className="hidden sm:inline-block sm:h-screen sm:align-middle" aria-hidden="true" />
 
                     <div className="inline-block max-h-[650px] transform rounded-lg border border-gray-300 bg-white px-4 pt-5 pb-4 text-left align-bottom shadow-xl transition-all dark:bg-[#202123] sm:my-8 sm:max-h-[650px] sm:w-full sm:max-w-lg sm:p-6 sm:align-middle">
-                        <button type="button" className="absolute top-1 right-1" onClick={onClose}>
+                        <button type="button" className="absolute top-1 right-1 text-black dark:text-neutral-200" onClick={onClose}>
                             <IconX size={18} />
                         </button>
 
@@ -45,27 +45,27 @@ export const VipDialog: FC<Props> = ({ open, onClose }) => {
                         </div>
 
                         {member ? (
-                            <div className="flex items-center space-x-2 mb-6">
+                            <div className="flex items-center space-x-2 mb-6 text-black dark:text-neutral-200">
                                 <IconVip size={18} color="gold"/>
                                 <p>会员到期时间: {expiryDate}</p>
                             </div>
                         ) : (
-                            <div className="flex items-center space-x-2 mb-6">
+                            <div className="flex items-center space-x-2 mb-6 text-black dark:text-neutral-200">
                                 <IconVipOff size={18}/>
                                 <p>非会员</p>
                             </div>
                         )}
 
                         <div className="mb-6">
-                            <p className="mb-4">{member ? "续费会员：" : "开通会员："}</p>
-                            <div className="flex flex-col space-y-2">
+                            <p className="mb-4 text-black dark:text-neutral-200">{member ? "续费会员：" : "开通会员："}</p>
+                            <div className="flex flex-col space-y-2 text-black dark:text-neutral-200">
                                 <div className="flex justify-between items-center space-x-2 border p-2 rounded hover:bg-green-500 transition-colors">日卡 <span>9元</span> <a href={`${serverUrl}/purchase/product/1`} className="btn" target="_blank">购买</a></div>
                                 <div className="flex justify-between items-center space-x-2 border p-2 rounded hover:bg-green-500 transition-colors">周卡 <span>39元</span> <a href={`${serverUrl}/purchase/product/2`} className="btn" target="_blank">购买</a></div>
                                 <div className="flex justify-between items-center space-x-2 border p-2 rounded hover:bg-green-500 transition-colors">月卡 <span>99元</span> <a href={`${serverUrl}/purchase/product/3`} className="btn" target="_blank">购买</a></div>
                             </div>
                         </div>
 
-                        <a href={`${serverUrl}/account/`} target="_blank" rel="noopener noreferrer" className="hover:underline">进入我的账户</a>
+                        <a href={`${serverUrl}/account/`} target="_blank" rel="noopener noreferrer" className="hover:underline text-black dark:text-neutral-200">进入我的账户</a>
                     </div>
                 </div>
             </div>
