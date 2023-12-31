@@ -104,9 +104,7 @@ const Home = ({
             if (user.nickname) {
               Cookies.set('nickname', user.nickname, { expires: 1, path: '/', domain: user.cookieDomain });
             }
-            if (user.member) {
-              Cookies.set('member', String(user.member), { expires: 1, path: '/', domain: user.cookieDomain });
-            }
+            Cookies.set('member', String(user.member), { expires: 1, path: '/', domain: user.cookieDomain });
             if (user.avatarUrl) {
               Cookies.set('avatarUrl', user.avatarUrl, { expires: 1, path: '/', domain: user.cookieDomain });
             }
