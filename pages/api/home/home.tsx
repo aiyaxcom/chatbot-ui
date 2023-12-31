@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useQuery } from 'react-query';
+import Cookies from 'js-cookie';
 
 import { GetServerSideProps } from 'next';
 import { useTranslation } from 'next-i18next';
@@ -53,7 +54,7 @@ const Home = ({
   defaultModelId,
 }: Props) => {
   const { t } = useTranslation('chat');
-  const { getModels } = useApiService();
+  const { getModels, getUser } = useApiService();
   const { getModelsError } = useErrorService();
   const [initialRender, setInitialRender] = useState<boolean>(true);
 
@@ -76,23 +77,48 @@ const Home = ({
 
   const stopConversationRef = useRef<boolean>(false);
 
+  const [enabled, setEnabled] = useState(false);
   const { data, error, refetch } = useQuery(
-    ['GetModels', apiKey, serverSideApiKeyIsSet],
+    [],
     ({ signal }) => {
-      if (!apiKey && !serverSideApiKeyIsSet) return null;
-
       return getModels(
-        {
-          key: apiKey,
-        },
         signal,
       );
     },
-    { enabled: true, refetchOnMount: false },
+    { enabled, refetchOnMount: false, refetchOnWindowFocus: false, refetchOnReconnect: false },
   );
 
   useEffect(() => {
-    if (data) dispatch({ field: 'models', value: data });
+    setEnabled(true);
+  }, []);
+
+  useEffect(() => {
+    if (data) {
+      dispatch({ field: 'models', value: data });
+
+      // After models data is fetched, fetch user data
+      getUser()
+          .then(user => {
+            console.log("user:", user);
+            // If user data is not empty, set it to cookies
+            if (user.nickname) {
+              Cookies.set('nickname', user.nickname, { expires: 1, path: '/', domain: user.cookieDomain });
+            }
+            if (user.member) {
+              Cookies.set('member', String(user.member), { expires: 1, path: '/', domain: user.cookieDomain });
+            }
+            if (user.avatarUrl) {
+              Cookies.set('avatarUrl', user.avatarUrl, { expires: 1, path: '/', domain: user.cookieDomain });
+            }
+            if (user.expireTime) {
+              console.log(user.expireTime)
+              Cookies.set('expireTime', String(new Date(user.expireTime).getTime()), { expires: 1, path: '/', domain: user.cookieDomain });
+            }
+          })
+          .catch(error => {
+            console.error('Error fetching user:', error);
+          });
+    }
   }, [data, dispatch]);
 
   useEffect(() => {

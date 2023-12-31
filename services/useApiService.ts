@@ -1,30 +1,47 @@
-import { useCallback } from 'react';
-
 import { useFetch } from '@/hooks/useFetch';
+import {useCallback} from "react";
 
-export interface GetModelsRequestProps {
-  key: string;
+interface User {
+    nickname: string;
+    member: boolean;
+    avatarUrl: string;
+    expireTime: string;
+    cookieDomain: string;
 }
 
 const useApiService = () => {
-  const fetchService = useFetch();
+    const fetchService = useFetch();
 
-  const getModels = useCallback(
-    (params: GetModelsRequestProps, signal?: AbortSignal) => {
-      return fetchService.get<GetModelsRequestProps>(process.env.NEXT_PUBLIC_MODELS_URL || `/openai/v1/models`, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
+    const getModels = useCallback(
+        (signal?: AbortSignal) => {
+            return fetchService.get(process.env.NEXT_PUBLIC_MODELS_URL || `/openai/v1/models`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                },
+                signal,
+            });
         },
-        signal,
-      });
-    },
-    [fetchService],
-  );
+        [fetchService],
+    );
 
-  return {
-    getModels,
-  };
+    const getUser = useCallback(
+        (signal?: AbortSignal): Promise<User> => {
+            return fetchService.get(process.env.NEXT_PUBLIC_USER_URL || `/users/me`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                },
+                signal,
+            });
+        },
+        [fetchService],
+    );
+
+    return {
+        getModels,
+        getUser,
+    };
 };
 
 export default useApiService;
