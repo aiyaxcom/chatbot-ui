@@ -1,4 +1,4 @@
-import Select, {components, OptionProps} from 'react-select';
+import Select, {components, SingleValueProps, OptionProps, GroupBase} from 'react-select';
 import { IconVip } from '@tabler/icons-react';
 import { useContext } from 'react';
 
@@ -40,13 +40,13 @@ export const ModelSelect = () => {
     );
   };
 
-    const CustomSingleValue: React.ComponentType<OptionProps<OptionType, false>> = (props) => {
+    const CustomSingleValue: React.ComponentType<SingleValueProps<OptionType, false, GroupBase<OptionType>>> = (props) => {
         const { data } = props;
         return (
             <components.SingleValue {...props}>
-              <span className="bg-transparent" style={{ display: 'flex', alignItems: 'center' }}>
-                {data.label} {data.needsVip ? <IconVip size={18} color="gold" /> : null}
-              </span>
+          <span className="bg-transparent" style={{ display: 'flex', alignItems: 'center' }}>
+            {data.label} {data.needsVip ? <IconVip size={18} color="gold" /> : null}
+          </span>
             </components.SingleValue>
         );
     };
@@ -63,7 +63,15 @@ export const ModelSelect = () => {
               placeholder={t('Select a model') || ''}
               value={options.find(option => option.value === (selectedConversation?.model?.id || defaultModelId))}
               onChange={(selectedOption) => {
-                  const selectedModel = models.find(model => model.id === selectedOption?.value);
+                  let selectedModelId: string | undefined;
+                  if (Array.isArray(selectedOption)) {
+                      // 如果selectedOption是MultiValue类型，取出第一个元素的value属性
+                      selectedModelId = (selectedOption[0] as { value: string; label: string; needsVip: boolean; })?.value;
+                  } else {
+                      // 否则，直接取出value属性
+                      selectedModelId = (selectedOption as { value: string; label: string; needsVip: boolean; })?.value;
+                  }
+                  const selectedModel = models.find(model => model.id === selectedModelId);
                   if (selectedModel && selectedConversation) {
                       handleUpdateConversation(selectedConversation, {
                           key: 'model',
