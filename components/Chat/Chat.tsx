@@ -425,7 +425,7 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
       ) : (
         <>
           <div
-            className="max-h-full overflow-x-hidden"
+            className="max-h-full overflow-visible"
             ref={chatContainerRef}
             onScroll={handleScroll}
           >

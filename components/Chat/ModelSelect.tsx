@@ -1,9 +1,8 @@
-import { IconExternalLink } from '@tabler/icons-react';
+import Select, {components, OptionProps} from 'react-select';
+import { IconVip } from '@tabler/icons-react';
 import { useContext } from 'react';
 
 import { useTranslation } from 'next-i18next';
-
-import { OpenAIModel } from '@/types/openai';
 
 import HomeContext from '@/pages/api/home/home.context';
 
@@ -11,43 +10,78 @@ export const ModelSelect = () => {
   const { t } = useTranslation('chat');
 
   const {
-    state: { selectedConversation, models, defaultModelId },
+    state: { selectedConversation, models, defaultModelId, lightMode },
     handleUpdateConversation,
     dispatch: homeDispatch,
   } = useContext(HomeContext);
 
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    selectedConversation &&
-      handleUpdateConversation(selectedConversation, {
-        key: 'model',
-        value: models.find(
-          (model) => model.id === e.target.value,
-        ) as OpenAIModel,
-      });
+  const isLightMode = lightMode === 'light';
+
+  type OptionType = {
+    value: string;
+    label: string;
+    needsVip: boolean;
+  }
+
+  const options = models.map((model) => ({
+    value: model.id,
+    label: model.name,
+    needsVip: model.free === false,
+  }));
+
+  const CustomOption: React.ComponentType<OptionProps<OptionType>> = (props) => {
+    const { data } = props;
+    return (
+        <components.Option {...props}>
+          <span style={{ display: 'flex', alignItems: 'center' }}>
+            {data.label} {data.needsVip ? <IconVip size={18} color="gold" /> : null}
+          </span>
+        </components.Option>
+    );
   };
 
+    const CustomSingleValue: React.ComponentType<OptionProps<OptionType, false>> = (props) => {
+        const { data } = props;
+        return (
+            <components.SingleValue {...props}>
+              <span className="bg-transparent" style={{ display: 'flex', alignItems: 'center' }}>
+                {data.label} {data.needsVip ? <IconVip size={18} color="gold" /> : null}
+              </span>
+            </components.SingleValue>
+        );
+    };
+
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col overflow-visible">
       <label className="mb-2 text-left text-neutral-700 dark:text-neutral-400">
         {t('Model')}
       </label>
-      <div className="w-full rounded-lg border border-neutral-200 bg-transparent pr-2 text-neutral-900 dark:border-neutral-600 dark:text-white">
-        <select
-          className="w-full bg-transparent p-2"
-          placeholder={t('Select a model') || ''}
-          value={selectedConversation?.model?.id || defaultModelId}
-          onChange={handleChange}
-        >
-          {models.map((model) => (
-            <option
-              key={model.id}
-              value={model.id}
-              className="dark:bg-[#343541] dark:text-white"
-            >
-                {model.name}
-            </option>
-          ))}
-        </select>
+      <div className="w-full rounded-lg bg-transparent pr-2 text-neutral-900 dark:border-neutral-600 dark:text-white">
+          <Select
+              isMulti={false}
+              className="w-full bg-transparent p-2 dark:text-white"
+              placeholder={t('Select a model') || ''}
+              value={options.find(option => option.value === (selectedConversation?.model?.id || defaultModelId))}
+              onChange={(selectedOption) => {
+                  const selectedModel = models.find(model => model.id === selectedOption?.value);
+                  if (selectedModel && selectedConversation) {
+                      handleUpdateConversation(selectedConversation, {
+                          key: 'model',
+                          value: selectedModel,
+                      });
+                  }
+              }}
+              options={options}
+              components={{ Option: CustomOption, SingleValue: CustomSingleValue }}
+              styles={{
+                  input: (provided) => ({ ...provided, width: 0 }),
+                  control: (styles) => ({ ...styles, backgroundColor: 'transparent', color: isLightMode ? 'black' : 'white' }),
+                  singleValue: (styles) => ({ ...styles, color: isLightMode ? 'black' : 'white' }),
+                  option: (styles) => ({ ...styles, backgroundColor:  isLightMode ? 'white' : 'rgb(52 53 65 / var(--tw-bg-opacity))', color: isLightMode ? 'black' : 'white' }),
+                  menu: (styles) => ({ ...styles, backgroundColor: isLightMode ? 'white' : 'rgb(52 53 65 / var(--tw-bg-opacity))', color: isLightMode ? 'black' : 'white' }),
+                  menuList: (styles) => ({ ...styles, backgroundColor: isLightMode ? 'white' : 'rgb(52 53 65 / var(--tw-bg-opacity))', color: isLightMode ? 'black' : 'white' }),
+              }}
+          />
       </div>
     </div>
   );
