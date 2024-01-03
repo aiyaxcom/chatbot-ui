@@ -3,6 +3,7 @@ import {
     IconSettings,
     IconVip, IconVipOff,
     IconNotebook,
+    IconLogout,
     IconPigMoney
 } from '@tabler/icons-react';
 import { useContext, useState } from 'react';
@@ -65,11 +66,11 @@ export const ChatbarSettings = () => {
         onClick={() => handleExportData()}
       />
 
-      <SidebarButton
-          text={t('User manual')}
-          icon={<IconNotebook size={18}/>}
-          onClick={ () => window.open(CHATBOT_USER_MANUAL_PAGE, '_blank')}
-      />
+      {/*<SidebarButton*/}
+      {/*    text={t('User manual')}*/}
+      {/*    icon={<IconNotebook size={18}/>}*/}
+      {/*    onClick={ () => window.open(CHATBOT_USER_MANUAL_PAGE, '_blank')}*/}
+      {/*/>*/}
 
         <SidebarButton
             text={t('Membership')}
@@ -78,16 +79,25 @@ export const ChatbarSettings = () => {
         />
 
       <SidebarButton
-        text={t('Settings')}
-        icon={<IconSettings size={18} />}
-        onClick={() => setIsSettingDialog(true)}
-      />
-
-      <SidebarButton
           text={t('Donate')}
           icon={<IconPigMoney size={18} color="green"/>}
           onClick={() => setIsDonateDialog(true)}
       />
+
+        <SidebarButton
+            text={t('Settings')}
+            icon={<IconSettings size={18} />}
+            onClick={() => setIsSettingDialog(true)}
+        />
+
+        <SidebarButton
+            text={t('Logout')}
+            icon={<IconLogout size={18} />}
+            onClick={() => {
+                Cookies.remove('Authorization');
+                window.location.reload();
+            }}
+        />
 
       <SettingDialog
           open={isSettingDialogOpen}
