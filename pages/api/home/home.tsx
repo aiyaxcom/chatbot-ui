@@ -101,6 +101,7 @@ const Home = ({
           .then(user => {
             console.log("user:", user);
             // If user data is not empty, set it to cookies
+            localStorage.setItem('cookieDomain', user.cookieDomain);
             if (user.nickname) {
               Cookies.set('nickname', user.nickname, { expires: 1, path: '/', domain: user.cookieDomain });
             }

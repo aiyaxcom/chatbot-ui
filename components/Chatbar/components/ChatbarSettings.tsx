@@ -42,11 +42,9 @@ export const ChatbarSettings = () => {
     handleClearConversations,
     handleImportConversations,
     handleExportData,
-    handleApiKeyChange,
   } = useContext(ChatbarContext);
 
-  const nickname = Cookies.get('nickname') || '匿名用户';
-  const member = Cookies.get('member') === 'true';
+  const cookieDomain = localStorage.getItem('cookieDomain');
 
   const setIsVipOpen = (show: boolean) => {
       homeDispatch({ field: 'showVipDialog', value: show });
@@ -94,7 +92,11 @@ export const ChatbarSettings = () => {
             text={t('Logout')}
             icon={<IconLogout size={18} />}
             onClick={() => {
-                Cookies.remove('Authorization');
+                if (cookieDomain) {
+                    Cookies.remove('Authorization', { domain: cookieDomain });
+                } else {
+                    Cookies.remove('Authorization');
+                }
                 window.location.reload();
             }}
         />
