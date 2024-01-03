@@ -10,7 +10,7 @@ export const ModelSelect = () => {
   const { t } = useTranslation('chat');
 
   const {
-    state: { selectedConversation, models, defaultModelId, lightMode },
+    state: { selectedConversation, models, defaultModelId, lightMode, isVip },
     handleUpdateConversation,
     dispatch: homeDispatch,
   } = useContext(HomeContext);
@@ -64,19 +64,22 @@ export const ModelSelect = () => {
               value={options.find(option => option.value === (selectedConversation?.model?.id || defaultModelId))}
               onChange={(selectedOption) => {
                   let selectedModelId: string | undefined;
-                  if (Array.isArray(selectedOption)) {
-                      // 如果selectedOption是MultiValue类型，取出第一个元素的value属性
-                      selectedModelId = (selectedOption[0] as { value: string; label: string; needsVip: boolean; })?.value;
-                  } else {
+                  // if (Array.isArray(selectedOption)) {
+                  //     // 如果selectedOption是MultiValue类型，取出第一个元素的value属性
+                  //     selectedModelId = (selectedOption[0] as { value: string; label: string; needsVip: boolean; })?.value;
+                  // } else {
                       // 否则，直接取出value属性
                       selectedModelId = (selectedOption as { value: string; label: string; needsVip: boolean; })?.value;
-                  }
+                  // }
                   const selectedModel = models.find(model => model.id === selectedModelId);
                   if (selectedModel && selectedConversation) {
                       handleUpdateConversation(selectedConversation, {
                           key: 'model',
                           value: selectedModel,
                       });
+                      if (!selectedModel.free && !isVip) {
+                          homeDispatch({field: 'showVipDialog', value: true});
+                      }
                   }
               }}
               options={options}

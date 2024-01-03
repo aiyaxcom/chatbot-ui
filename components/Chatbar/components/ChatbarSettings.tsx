@@ -27,12 +27,12 @@ export const ChatbarSettings = () => {
   const { t } = useTranslation('sidebar');
   const [isSettingDialogOpen, setIsSettingDialog] = useState<boolean>(false);
   const [isDonateDialogOpen, setIsDonateDialog] = useState<boolean>(false);
-    const [isVipOpen, setIsVipOpen] = useState<boolean>(false);
 
   const {
     state: {
       lightMode,
       conversations,
+      showVipDialog,
     },
     dispatch: homeDispatch,
   } = useContext(HomeContext);
@@ -46,6 +46,10 @@ export const ChatbarSettings = () => {
 
   const nickname = Cookies.get('nickname') || '匿名用户';
   const member = Cookies.get('member') === 'true';
+
+  const setIsVipOpen = (show: boolean) => {
+      homeDispatch({ field: 'showVipDialog', value: show });
+  }
 
   return (
     <div className="flex flex-col items-center space-y-1 border-t border-white/20 pt-1 text-sm">
@@ -100,7 +104,7 @@ export const ChatbarSettings = () => {
       />
 
         <VipDialog
-            open={isVipOpen}
+            open={showVipDialog}
             onClose={() => {
                 setIsVipOpen(false);
             }}

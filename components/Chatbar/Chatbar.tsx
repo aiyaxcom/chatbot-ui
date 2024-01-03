@@ -34,7 +34,7 @@ export const Chatbar = () => {
   });
 
   const {
-    state: { conversations, showChatbar, defaultModelId, folders, pluginKeys },
+    state: { conversations, showChatbar, defaultModelId, folders, pluginKeys, showVipDialog },
     dispatch: homeDispatch,
     handleCreateFolder,
     handleNewConversation,
@@ -54,6 +54,10 @@ export const Chatbar = () => {
     },
     [homeDispatch],
   );
+
+  // const openVipDialog = () => {
+  //   homeDispatch({ field: 'showVipDialog', value: true });
+  // }
 
   const handlePluginKeyChange = (pluginKey: PluginKey) => {
     if (pluginKeys.some((key) => key.pluginId === pluginKey.pluginId)) {

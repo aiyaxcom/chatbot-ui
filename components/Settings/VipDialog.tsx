@@ -1,7 +1,8 @@
-import { FC } from 'react';
+import {FC, useContext, useEffect} from 'react';
 import { useTranslation } from 'next-i18next';
 import Cookies from 'js-cookie';
 import { IconVip, IconVipOff, IconX, IconMoodBoy } from '@tabler/icons-react';
+import HomeContext from "@/pages/api/home/home.context";
 
 interface Props {
     open: boolean;
@@ -11,9 +12,19 @@ interface Props {
 export const VipDialog: FC<Props> = ({ open, onClose }) => {
     const { t } = useTranslation('settings');
 
+    const {
+        dispatch: homeDispatch,
+    } = useContext(HomeContext);
+
     const nickname = Cookies.get('nickname') || '匿名用户';
     const avatar = Cookies.get('avatarUrl');
     const member = Cookies.get('member') === 'true';
+    useEffect(() => {
+        if (open) {
+            const isVip = Cookies.get('member') === 'true';
+            homeDispatch({ field: 'isVip', value: isVip });
+        }
+    }, [open]);
     const expiryTimestamp = Cookies.get('expireTime');
     const expiryDate = expiryTimestamp ? new Date(Number(expiryTimestamp)).toLocaleString() : '无';
     const serverUrl = Cookies.get('serverUrl');

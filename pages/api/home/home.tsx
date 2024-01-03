@@ -105,6 +105,7 @@ const Home = ({
               Cookies.set('nickname', user.nickname, { expires: 1, path: '/', domain: user.cookieDomain });
             }
             Cookies.set('member', String(user.member), { expires: 1, path: '/', domain: user.cookieDomain });
+            dispatch({ field: 'isVip', value: user.member })
             if (user.avatarUrl) {
               Cookies.set('avatarUrl', user.avatarUrl, { expires: 1, path: '/', domain: user.cookieDomain });
             }
