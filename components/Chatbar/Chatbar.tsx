@@ -33,7 +33,7 @@ export const Chatbar = () => {
   });
 
   const {
-    state: { conversations, showChatbar, defaultModelId, folders, pluginKeys },
+    state: { conversations, showChatbar, defaultModelId, folders },
     dispatch: homeDispatch,
     handleCreateFolder,
     handleNewConversation,

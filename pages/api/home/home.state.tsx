@@ -7,8 +7,6 @@ import { Prompt } from '@/types/prompt';
 import Cookies from 'js-cookie';
 
 export interface HomeInitialState {
-  apiKey: string;
-  pluginKeys: PluginKey[];
   loading: boolean;
   lightMode: 'light' | 'dark';
   messageIsStreaming: boolean;
@@ -28,14 +26,10 @@ export interface HomeInitialState {
   messageError: boolean;
   searchTerm: string;
   defaultModelId: OpenAIModelID | undefined;
-  serverSideApiKeyIsSet: boolean;
-  serverSidePluginKeysSet: boolean;
 }
 
 export const initialState: HomeInitialState = {
-  apiKey: '',
   loading: false,
-  pluginKeys: [],
   lightMode: 'dark',
   messageIsStreaming: false,
   modelError: null,
@@ -54,6 +48,4 @@ export const initialState: HomeInitialState = {
   messageError: false,
   searchTerm: '',
   defaultModelId: undefined,
-  serverSideApiKeyIsSet: false,
-  serverSidePluginKeysSet: false,
 };
