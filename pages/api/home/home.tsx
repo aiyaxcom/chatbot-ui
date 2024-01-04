@@ -64,13 +64,12 @@ const Home = ({
 
   const {
     state: {
-      apiKey,
       lightMode,
       folders,
       conversations,
       selectedConversation,
       prompts,
-      temperature,
+      showVipDialog,
     },
     dispatch,
   } = contextValue;
@@ -254,7 +253,7 @@ const Home = ({
   // EFFECTS  --------------------------------------------
 
   useEffect(() => {
-    if (window.innerWidth < 640) {
+    if (window.innerWidth < 640 && !showVipDialog) {
       dispatch({ field: 'showChatbar', value: false });
     }
   }, [selectedConversation]);
@@ -275,6 +274,20 @@ const Home = ({
   }, [defaultModelId, serverSideApiKeyIsSet, serverSidePluginKeysSet]);
 
   // ON LOAD --------------------------------------------
+
+  useEffect(() => {
+    console.log('use effect for empty')
+    if (window.innerWidth < 640) {
+      dispatch({ field: 'showChatbar', value: false });
+      dispatch({ field: 'showPromptbar', value: false });
+    }
+
+    const showChatbar = localStorage.getItem('showChatbar');
+    if (showChatbar) {
+      dispatch({ field: 'showChatbar', value: showChatbar === 'true' });
+    }
+  }, []);
+
 
   useEffect(() => {
     const settings = getSettings();
@@ -301,16 +314,6 @@ const Home = ({
       localStorage.removeItem('pluginKeys');
     } else if (pluginKeys) {
       dispatch({ field: 'pluginKeys', value: pluginKeys });
-    }
-
-    if (window.innerWidth < 640) {
-      dispatch({ field: 'showChatbar', value: false });
-      dispatch({ field: 'showPromptbar', value: false });
-    }
-
-    const showChatbar = localStorage.getItem('showChatbar');
-    if (showChatbar) {
-      dispatch({ field: 'showChatbar', value: showChatbar === 'true' });
     }
 
     const showPromptbar = localStorage.getItem('showPromptbar');
