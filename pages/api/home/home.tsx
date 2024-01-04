@@ -43,20 +43,15 @@ import { HomeInitialState, initialState } from './home.state';
 import { v4 as uuidv4 } from 'uuid';
 
 interface Props {
-  serverSideApiKeyIsSet: boolean;
-  serverSidePluginKeysSet: boolean;
   defaultModelId: OpenAIModelID;
 }
 
 const Home = ({
-  serverSideApiKeyIsSet,
-  serverSidePluginKeysSet,
   defaultModelId,
 }: Props) => {
   const { t } = useTranslation('chat');
   const { getModels, getUser } = useApiService();
   const { getModelsError } = useErrorService();
-  const [initialRender, setInitialRender] = useState<boolean>(true);
 
   const contextValue = useCreateReducer<HomeInitialState>({
     initialState,
@@ -261,17 +256,7 @@ const Home = ({
   useEffect(() => {
     defaultModelId &&
       dispatch({ field: 'defaultModelId', value: defaultModelId });
-    serverSideApiKeyIsSet &&
-      dispatch({
-        field: 'serverSideApiKeyIsSet',
-        value: serverSideApiKeyIsSet,
-      });
-    serverSidePluginKeysSet &&
-      dispatch({
-        field: 'serverSidePluginKeysSet',
-        value: serverSidePluginKeysSet,
-      });
-  }, [defaultModelId, serverSideApiKeyIsSet, serverSidePluginKeysSet]);
+  }, [defaultModelId]);
 
   // ON LOAD --------------------------------------------
 
@@ -296,24 +281,6 @@ const Home = ({
         field: 'lightMode',
         value: settings.theme,
       });
-    }
-
-    const apiKey = localStorage.getItem('apiKey');
-
-    if (serverSideApiKeyIsSet) {
-      dispatch({ field: 'apiKey', value: '' });
-
-      localStorage.removeItem('apiKey');
-    } else if (apiKey) {
-      dispatch({ field: 'apiKey', value: apiKey });
-    }
-
-    const pluginKeys = localStorage.getItem('pluginKeys');
-    if (serverSidePluginKeysSet) {
-      dispatch({ field: 'pluginKeys', value: [] });
-      localStorage.removeItem('pluginKeys');
-    } else if (pluginKeys) {
-      dispatch({ field: 'pluginKeys', value: pluginKeys });
     }
 
     const showPromptbar = localStorage.getItem('showPromptbar');
@@ -372,8 +339,6 @@ const Home = ({
   }, [
     defaultModelId,
     dispatch,
-    serverSideApiKeyIsSet,
-    serverSidePluginKeysSet,
   ]);
 
   return (
