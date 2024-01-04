@@ -46,10 +46,6 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
       selectedConversation,
       conversations,
       models,
-      apiKey,
-      pluginKeys,
-      serverSideApiKeyIsSet,
-      messageIsStreaming,
       modelError,
       loading,
       prompts,
@@ -120,19 +116,7 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
         // Frontend logic
         const endpoint = getEndpoint(plugin);
         let body;
-        if (!plugin) {
-          body = JSON.stringify(chatBody);
-        } else {
-          body = JSON.stringify({
-            ...chatBody,
-            googleAPIKey: pluginKeys
-              .find((key) => key.pluginId === 'google-search')
-              ?.requiredKeys.find((key) => key.key === 'GOOGLE_API_KEY')?.value,
-            googleCSEId: pluginKeys
-              .find((key) => key.pluginId === 'google-search')
-              ?.requiredKeys.find((key) => key.key === 'GOOGLE_CSE_ID')?.value,
-          });
-        }
+        body = JSON.stringify(chatBody);
         const controller = new AbortController();
         const response = await fetch(endpoint, {
           method: 'POST',
@@ -150,10 +134,6 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
           const { message } = responseData;
           const errorMessage = message || response.statusText;
           toast.error(errorMessage);
-          // if (errorMessage.contains('收费模型需要开通会员才可使用')) {
-          //   // 设置ChatbarSettings的isVip为true
-          //   setIsVip(true);
-          // }
           return;
         }
         const data = response.body;
@@ -162,7 +142,7 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
           homeDispatch({ field: 'messageIsStreaming', value: false });
           return;
         }
-        if (!plugin) {
+        // if (!plugin) {
           if (updatedConversation.messages.length === 1) {
             const { content } = message;
             const customName =
@@ -245,54 +225,15 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
           homeDispatch({ field: 'conversations', value: updatedConversations });
           saveConversations(updatedConversations);
           homeDispatch({ field: 'messageIsStreaming', value: false });
-        } else {
-          const { answer } = await response.json();
-          const updatedMessages: Message[] = [
-            ...updatedConversation.messages,
-            { role: 'assistant', content: answer },
-          ];
-          updatedConversation = {
-            ...updatedConversation,
-            messages: updatedMessages,
-          };
-          homeDispatch({
-            field: 'selectedConversation',
-            value: updateConversation,
-          });
-          saveConversation(updatedConversation);
-          const updatedConversations: Conversation[] = conversations.map(
-            (conversation) => {
-              if (conversation.id === selectedConversation.id) {
-                return updatedConversation;
-              }
-              return conversation;
-            },
-          );
-          if (updatedConversations.length === 0) {
-            updatedConversations.push(updatedConversation);
-          }
-          homeDispatch({ field: 'conversations', value: updatedConversations });
-          saveConversations(updatedConversations);
-          homeDispatch({ field: 'loading', value: false });
-          homeDispatch({ field: 'messageIsStreaming', value: false });
         }
-      }
+      // }
     },
     [
-      apiKey,
       conversations,
-      pluginKeys,
       selectedConversation,
       stopConversationRef,
     ],
   );
-
-  const scrollToBottom = useCallback(() => {
-    if (autoScrollEnabled) {
-      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-      textareaRef.current?.focus();
-    }
-  }, [autoScrollEnabled]);
 
   const handleScroll = () => {
     if (chatContainerRef.current) {
