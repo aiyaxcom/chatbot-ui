@@ -72,7 +72,9 @@ export const ModelSelect = () => {
                       });
                       if (!selectedModel.free && !isVip) {
                           homeDispatch({field: 'showChatbar', value: true});
-                          homeDispatch({field: 'showVipDialog', value: true});
+                          setTimeout(() => {
+                              homeDispatch({field: 'showVipDialog', value: true});
+                          }, 500);
                       }
                   }
               }}
