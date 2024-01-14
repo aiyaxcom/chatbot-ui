@@ -41,3 +41,7 @@ html {
 pre:has(div.codeblock) {
   padding: 0;
 }
+
+.ant-table-thead > tr > th {
+  @apply bg-white dark:bg-[#202123] text-black dark:text-neutral-400;
+}
