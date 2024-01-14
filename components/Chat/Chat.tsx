@@ -133,7 +133,9 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
           const responseData = await response.json();
           const { message } = responseData;
           const errorMessage = message || response.statusText;
-          toast.error(errorMessage);
+          toast.error(errorMessage, {
+            duration: 5000,
+          });
           return;
         }
         const data = response.body;
