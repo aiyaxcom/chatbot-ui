@@ -42,6 +42,7 @@ export const VipDialog: FC<Props> = ({ open, onClose }) => {
     ];
 
     const className = 'bg-white dark:bg-[#202123] text-black dark:text-neutral-400';
+    const greenTextClassName = 'text-green-600 bg-white dark:bg-[#202123]';
     const rowClassName = 'hover:bg-gray-500';
 
     const productColumns = [
@@ -68,7 +69,7 @@ export const VipDialog: FC<Props> = ({ open, onClose }) => {
             dataIndex: 'link',
             key: 'link',
             render: (text: string) => <a href={text} target="_blank" className="underline hover:underline">购买</a>,
-            className: className
+            className: greenTextClassName
         },
     ];
 
@@ -80,7 +81,7 @@ export const VipDialog: FC<Props> = ({ open, onClose }) => {
             className: className,
         },
         { title: '非会员', dataIndex: 'nonMember', key: 'nonMember', className: className },
-        { title: '黄金会员', dataIndex: 'member', key: 'member', className: className },
+        { title: '黄金会员', dataIndex: 'member', key: 'member', className: greenTextClassName },
     ];
 
     if (!open) {
@@ -121,7 +122,6 @@ export const VipDialog: FC<Props> = ({ open, onClose }) => {
                         <div className="mb-4">
                             <div className="font-bold text-black dark:text-neutral-200">购买会员</div>
                             <Table
-                                   rowClassName={rowClassName}
                                    columns={productColumns}
                                    dataSource={products}
                                    showHeader={false}
@@ -132,7 +132,9 @@ export const VipDialog: FC<Props> = ({ open, onClose }) => {
 
                         <div className='mb-4'>
                             <div className="font-bold text-black dark:text-neutral-200">会员权益说明</div>
-                            <Table columns={benefitColumns} dataSource={benefits} pagination={false} />
+                            <Table
+                                className="no-hover"
+                                columns={benefitColumns} dataSource={benefits} pagination={false} />
                         </div>
 
                         <div className="my-6"></div>

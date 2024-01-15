@@ -45,3 +45,7 @@ pre:has(div.codeblock) {
 .ant-table-thead > tr > th {
   @apply bg-white dark:bg-[#202123] text-black dark:text-neutral-400;
 }
+
+.no-hover .ant-table-tbody > tr:hover > td {
+  background: none !important;
+}
