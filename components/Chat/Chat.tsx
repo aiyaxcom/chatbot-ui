@@ -103,9 +103,9 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
           conversationId: selectedConversation.id,
         };
 
-        // 判断chatBody的大小是否超过100k
+        // 判断chatBody的大小是否超过50k，后端为256k DataBuffer, 对应汉字至少60k
         const chatBodySize = JSON.stringify(chatBody).length;
-        if (chatBodySize > 100000) {
+        if (chatBodySize > 50000) {
             homeDispatch({ field: 'loading', value: false });
             homeDispatch({ field: 'messageIsStreaming', value: false });
             toast.error('该聊天过大，请创建新聊天再继续提问');
