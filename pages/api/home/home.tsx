@@ -100,7 +100,7 @@ const Home = ({
               Cookies.set('nickname', user.nickname, { expires: 1, path: '/', domain: user.cookieDomain });
             }
             Cookies.set('member', String(user.member), { expires: 1, path: '/', domain: user.cookieDomain });
-            dispatch({ field: 'isVip', value: user.member })
+            dispatch({ field: 'isGoldVip', value: user.membership === 'VIP_GOLD' });
             Cookies.set('membership', user.membership, { expires: 1, path: '/', domain: user.cookieDomain });
             Cookies.set('membershipDisplayName', user.membershipDisplayName, { expires: 1, path: '/', domain: user.cookieDomain });
             if (user.avatarUrl) {
