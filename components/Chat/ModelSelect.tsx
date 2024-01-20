@@ -10,7 +10,7 @@ export const ModelSelect = () => {
   const { t } = useTranslation('chat');
 
   const {
-    state: { selectedConversation, models, defaultModelId, lightMode, isVip },
+    state: { selectedConversation, models, defaultModelId, lightMode, isGoldVip },
     handleUpdateConversation,
     dispatch: homeDispatch,
   } = useContext(HomeContext);
@@ -70,7 +70,7 @@ export const ModelSelect = () => {
                           key: 'model',
                           value: selectedModel,
                       });
-                      if (!selectedModel.free && !isVip) {
+                      if (!selectedModel.free && !isGoldVip) {
                           homeDispatch({field: 'showVipDialog', value: true});
                           homeDispatch({field: 'showChatbar', value: true});
                       }

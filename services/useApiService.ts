@@ -4,8 +4,10 @@ import {useCallback} from "react";
 interface User {
     nickname: string;
     member: boolean;
+    membership: string;
+    membershipDisplayName: string;
     avatarUrl: string;
-    expireTime: string;
+    memberExpireTime: string;
     cookieDomain: string;
 }
 

@@ -20,7 +20,7 @@ export interface HomeInitialState {
   showChatbar: boolean;
   showPromptbar: boolean;
   showVipDialog: boolean;
-  isVip: boolean;
+  isGoldVip: boolean;
   currentFolder: FolderInterface | undefined;
   messageError: boolean;
   searchTerm: string;
@@ -42,7 +42,7 @@ export const initialState: HomeInitialState = {
   showPromptbar: false,
   showChatbar: true,
   showVipDialog: false,
-  isVip: Cookies.get('member') === 'true',
+  isGoldVip: Cookies.get('membership') === 'VIP_GOLD',
   currentFolder: undefined,
   messageError: false,
   searchTerm: '',

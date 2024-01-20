@@ -22,10 +22,11 @@ export const VipDialog: FC<Props> = ({ open, onClose }) => {
     const member = Cookies.get('member') === 'true';
     useEffect(() => {
         if (open) {
-            const isVip = Cookies.get('member') === 'true';
-            homeDispatch({ field: 'isVip', value: isVip });
+            const isGoldVip = Cookies.get('membership') === 'VIP_GOLD';
+            homeDispatch({ field: 'isGoldVip', value: isGoldVip });
         }
     }, [open]);
+    const membershipDisplayName = Cookies.get('membershipDisplayName');
     const expiryTimestamp = Cookies.get('expireTime');
     const expiryDate = expiryTimestamp ? new Date(Number(expiryTimestamp)).toLocaleString() : '无';
     const serverUrl = Cookies.get('serverUrl');
@@ -110,7 +111,7 @@ export const VipDialog: FC<Props> = ({ open, onClose }) => {
                         {member ? (
                             <div className="flex items-center space-x-2 mb-6 text-green-500">
                                 <IconVip size={18} color="gold"/>
-                                <p>黄金会员 到期时间: {expiryDate}</p>
+                                <p>{membershipDisplayName} 到期时间: {expiryDate}</p>
                             </div>
                         ) : (
                             <div className="flex items-center space-x-2 mb-6 text-yellow-500">

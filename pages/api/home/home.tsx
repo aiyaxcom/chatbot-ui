@@ -101,12 +101,14 @@ const Home = ({
             }
             Cookies.set('member', String(user.member), { expires: 1, path: '/', domain: user.cookieDomain });
             dispatch({ field: 'isVip', value: user.member })
+            Cookies.set('membership', user.membership, { expires: 1, path: '/', domain: user.cookieDomain });
+            Cookies.set('membershipDisplayName', user.membershipDisplayName, { expires: 1, path: '/', domain: user.cookieDomain });
             if (user.avatarUrl) {
               Cookies.set('avatarUrl', user.avatarUrl, { expires: 1, path: '/', domain: user.cookieDomain });
             }
-            if (user.expireTime) {
-              console.log(user.expireTime)
-              Cookies.set('expireTime', String(new Date(user.expireTime).getTime()), { expires: 1, path: '/', domain: user.cookieDomain });
+            if (user.memberExpireTime) {
+              console.log(user.memberExpireTime)
+              Cookies.set('expireTime', String(user.memberExpireTime), { expires: 1, path: '/', domain: user.cookieDomain });
             }
           })
           .catch(error => {
