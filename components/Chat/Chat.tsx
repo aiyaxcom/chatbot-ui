@@ -21,7 +21,6 @@ import {
 import { throttle } from '@/utils/data/throttle';
 
 import { ChatBody, Conversation, Message } from '@/types/chat';
-import { Plugin } from '@/types/plugin';
 
 import HomeContext from '@/pages/api/home/home.context';
 
@@ -70,7 +69,7 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
   };
 
   const handleSend = useCallback(
-    async (message: Message, deleteCount = 0, plugin: Plugin | null = null) => {
+    async (message: Message, deleteCount = 0) => {
       if (selectedConversation) {
         let updatedConversation: Conversation;
         if (deleteCount) {
@@ -114,7 +113,7 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
 
 
         // Frontend logic
-        const endpoint = getEndpoint(plugin);
+        const endpoint = getEndpoint();
         let body;
         body = JSON.stringify(chatBody);
         const controller = new AbortController();
@@ -426,14 +425,14 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
           <ChatInput
             stopConversationRef={stopConversationRef}
             textareaRef={textareaRef}
-            onSend={(message, plugin) => {
+            onSend={(message) => {
               setCurrentMessage(message);
-              handleSend(message, 0, plugin);
+              handleSend(message, 0);
             }}
             onScrollDownClick={handleScrollDown}
             onRegenerate={() => {
               if (currentMessage) {
-                handleSend(currentMessage, 2, null);
+                handleSend(currentMessage, 2);
               }
             }}
             showScrollDownButton={showScrollDownButton}
