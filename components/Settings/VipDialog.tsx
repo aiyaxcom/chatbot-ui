@@ -37,7 +37,7 @@ export const VipDialog: FC<Props> = ({ open, onClose }) => {
         {membership: '黄金会员', period: '1月', description: '描述', price: '99元', link: `${serverUrl}/purchase/product/3`},
         {membership: '白银会员', period: '1天', description: '描述', price: '5元', link: `${serverUrl}/purchase/product/4`},
         {membership: '白银会员', period: '1周', description: '描述', price: '9元', link: `${serverUrl}/purchase/product/5`},
-        // {membership: '白银会员', period: '1月', description: '描述', price: '29元', link: `${serverUrl}/purchase/product/6`},
+        {membership: '白银会员', period: '1月', description: '描述', price: '29元', link: `${serverUrl}/purchase/product/6`},
     ];
 
     const benefits = [
@@ -99,7 +99,7 @@ export const VipDialog: FC<Props> = ({ open, onClose }) => {
                 <div className="flex items-center justify-center min-h-screen px-4 text-center sm:block sm:p-0">
                     <div className="hidden sm:inline-block sm:h-screen sm:align-middle" aria-hidden="true" />
 
-                    <div className="inline-block max-h-[730px] transform rounded-lg border border-gray-300 bg-white px-4 pt-5 pb-4 text-left align-bottom shadow-xl transition-all dark:bg-[#202123] sm:my-8 sm:max-h-[730px] sm:w-full sm:max-w-lg sm:p-6 sm:align-middle">
+                    <div className="inline-block max-h-[740px] transform rounded-lg border border-gray-300 bg-white px-4 pt-5 pb-4 text-left align-bottom shadow-xl transition-all dark:bg-[#202123] sm:my-8 sm:max-h-[600px] sm:w-full sm:max-w-lg sm:p-6 sm:align-middle sm:overflow-y-auto">
                         <button type="button" className="absolute top-1 right-1 text-black dark:text-neutral-200" onClick={onClose}>
                             <IconX size={18} />
                         </button>
