@@ -42,7 +42,7 @@ export const VipDialog: FC<Props> = ({ open, onClose }) => {
 
     const benefits = [
         {type: '基础版', nonMember: '10次/日', vipSilver: '60次/日', vipGold: '60次/日'},
-        {type: '高级版', nonMember: '不可使用', vipSilver: '不可使用', vipGold: '20次/日'},
+        {type: '高级版', nonMember: '--', vipSilver: '--', vipGold: '20次/日'},
     ];
 
     const className = 'bg-white dark:bg-[#202123] text-black dark:text-neutral-400';
@@ -85,8 +85,8 @@ export const VipDialog: FC<Props> = ({ open, onClose }) => {
             className: className,
         },
         { title: '非会员', dataIndex: 'nonMember', key: 'nonMember', className: className },
-        { title: '白银会员', dataIndex: 'vipSilver', key: 'vipSilver', className: greenTextClassName },
-        { title: '黄金会员', dataIndex: 'vipGold', key: 'vipGold', className: greenTextClassName },
+        { title: '白银', dataIndex: 'vipSilver', key: 'vipSilver', className: greenTextClassName },
+        { title: '黄金', dataIndex: 'vipGold', key: 'vipGold', className: greenTextClassName },
     ];
 
     if (!open) {
