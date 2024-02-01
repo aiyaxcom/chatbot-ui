@@ -37,7 +37,7 @@ export const VipDialog: FC<Props> = ({ open, onClose }) => {
         {membership: '黄金会员', period: '1月', description: '描述', price: '99元', link: `${serverUrl}/purchase/product/3`},
         {membership: '白银会员', period: '1天', description: '描述', price: '5元', link: `${serverUrl}/purchase/product/4`},
         {membership: '白银会员', period: '1周', description: '描述', price: '9元', link: `${serverUrl}/purchase/product/5`},
-        {membership: '白银会员', period: '1月', description: '描述', price: '29元', link: `${serverUrl}/purchase/product/6`},
+        // {membership: '白银会员', period: '1月', description: '描述', price: '29元', link: `${serverUrl}/purchase/product/6`},
     ];
 
     const benefits = [
