@@ -33,8 +33,8 @@ export const DonateDialog: FC<Props> = ({ open, onClose }) => {
                         </div>
 
                         <img
-                            src="wechat_pay_qr_code_min.jpg"
-                            alt="Wechat Pay QR Code"
+                            src="wechat_official_account_qr_code.jpg"
+                            alt="Wechat Official Account QR Code"
                             className="m-auto"
                             width="300"
                             height="300"

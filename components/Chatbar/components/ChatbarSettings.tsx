@@ -1,10 +1,9 @@
 import {
     IconFileExport,
     IconSettings,
-    IconVip, IconVipOff,
-    IconNotebook,
+    IconVip,
     IconLogout,
-    IconPigMoney
+    IconBrandWechat
 } from '@tabler/icons-react';
 import { useContext, useState } from 'react';
 
@@ -21,7 +20,6 @@ import { Import } from '../../Settings/Import';
 import { SidebarButton } from '../../Sidebar/SidebarButton';
 import ChatbarContext from '../Chatbar.context';
 import { ClearConversations } from './ClearConversations';
-import {CHATBOT_HOME_PAGE, CHATBOT_USER_MANUAL_PAGE} from "@/utils/app/const";
 import {VipDialog} from "@/components/Settings/VipDialog";
 
 export const ChatbarSettings = () => {
@@ -78,7 +76,7 @@ export const ChatbarSettings = () => {
 
       <SidebarButton
           text={t('Donate')}
-          icon={<IconPigMoney size={18} color="green"/>}
+          icon={<IconBrandWechat size={18} color="green"/>}
           onClick={() => setIsDonateDialog(true)}
       />
 
