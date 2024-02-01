@@ -49,3 +49,9 @@ pre:has(div.codeblock) {
 .no-hover .ant-table-tbody > tr:hover > td {
   background: none !important;
 }
+
+.smaller-row-height .ant-table-row {
+  line-height: 1.2;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}

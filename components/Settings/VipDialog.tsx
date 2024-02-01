@@ -35,11 +35,14 @@ export const VipDialog: FC<Props> = ({ open, onClose }) => {
         {membership: '黄金会员', period: '1天', description: '描述', price: '9元', link: `${serverUrl}/purchase/product/1`},
         {membership: '黄金会员', period: '1周', description: '描述', price: '39元', link: `${serverUrl}/purchase/product/2`},
         {membership: '黄金会员', period: '1月', description: '描述', price: '99元', link: `${serverUrl}/purchase/product/3`},
+        {membership: '白银会员', period: '1天', description: '描述', price: '5元', link: `${serverUrl}/purchase/product/4`},
+        {membership: '白银会员', period: '1周', description: '描述', price: '9元', link: `${serverUrl}/purchase/product/5`},
+        {membership: '白银会员', period: '1月', description: '描述', price: '29元', link: `${serverUrl}/purchase/product/6`},
     ];
 
     const benefits = [
-        {type: '基础版', nonMember: '30次/日', member: '80次/日'},
-        {type: '高级版', nonMember: '不可使用', member: '20次/日'},
+        {type: '基础版', nonMember: '30次/日', vipSilver: '80次/日', vipGold: '80次/日'},
+        {type: '高级版', nonMember: '不可使用', vipSilver: '不可使用', vipGold: '20次/日'},
     ];
 
     const className = 'bg-white dark:bg-[#202123] text-black dark:text-neutral-400';
@@ -76,13 +79,14 @@ export const VipDialog: FC<Props> = ({ open, onClose }) => {
 
     const benefitColumns = [
         {
-            title: '聊天模型',
+            title: '模型',
             dataIndex: 'type',
             key: 'type',
             className: className,
         },
         { title: '非会员', dataIndex: 'nonMember', key: 'nonMember', className: className },
-        { title: '黄金会员', dataIndex: 'member', key: 'member', className: greenTextClassName },
+        { title: '白银会员', dataIndex: 'vipSilver', key: 'vipSilver', className: greenTextClassName },
+        { title: '黄金会员', dataIndex: 'vipGold', key: 'vipGold', className: greenTextClassName },
     ];
 
     if (!open) {
@@ -95,7 +99,7 @@ export const VipDialog: FC<Props> = ({ open, onClose }) => {
                 <div className="flex items-center justify-center min-h-screen px-4 text-center sm:block sm:p-0">
                     <div className="hidden sm:inline-block sm:h-screen sm:align-middle" aria-hidden="true" />
 
-                    <div className="inline-block max-h-[650px] transform rounded-lg border border-gray-300 bg-white px-4 pt-5 pb-4 text-left align-bottom shadow-xl transition-all dark:bg-[#202123] sm:my-8 sm:max-h-[700px] sm:w-full sm:max-w-lg sm:p-6 sm:align-middle">
+                    <div className="inline-block max-h-[730px] transform rounded-lg border border-gray-300 bg-white px-4 pt-5 pb-4 text-left align-bottom shadow-xl transition-all dark:bg-[#202123] sm:my-8 sm:max-h-[730px] sm:w-full sm:max-w-lg sm:p-6 sm:align-middle">
                         <button type="button" className="absolute top-1 right-1 text-black dark:text-neutral-200" onClick={onClose}>
                             <IconX size={18} />
                         </button>
@@ -123,6 +127,7 @@ export const VipDialog: FC<Props> = ({ open, onClose }) => {
                         <div className="mb-4">
                             <div className="font-bold text-black dark:text-neutral-200">购买会员</div>
                             <Table
+                                   className="smaller-row-height"
                                    columns={productColumns}
                                    dataSource={products}
                                    showHeader={false}
