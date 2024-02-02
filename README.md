@@ -8,11 +8,6 @@ Chatbot UI will be updated over time.
 
 Expect frequent improvements.
 
-**Next up:**
-
-- [ ] Sharing
-- [ ] "Bots"
-
 ## Deploy
 
 **Vercel**
