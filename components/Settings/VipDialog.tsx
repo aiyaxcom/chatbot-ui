@@ -54,6 +54,15 @@ export const VipDialog: FC<Props> = ({ open, onClose }) => {
             title: '会员类型',
             dataIndex: 'membership',
             key: 'membership',
+            render: (text: string) => {
+                if (text === '黄金会员') {
+                    return <span style={{ color: 'gold' }}>{text}</span>;
+                } else if (text === '白银会员') {
+                    return <span style={{ color: '#C0C0C0' }}>{text}</span>;
+                } else {
+                    return text;
+                }
+            },
             className: className
         },
         {
