@@ -72,7 +72,11 @@ export const ChatbarSettings = () => {
             text={t('Membership')}
             icon={<IconVip size={18} color="gold"/>}
             onClick={() => setIsVipOpen(true)}
-        />
+        >
+            <div className="absolute right-0 text-2xs bg-red-500 text-white px-1 py-0.5 rounded-md">
+                降价啦!
+            </div>
+        </SidebarButton>
 
       <SidebarButton
           text={t('Donate')}
