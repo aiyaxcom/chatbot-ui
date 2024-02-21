@@ -7,7 +7,11 @@ module.exports = {
   ],
   darkMode: 'class',
   theme: {
-    extend: {},
+    extend: {
+      fontSize: {
+        '2xs': '.625rem',
+      }
+    },
   },
   variants: {
     extend: {

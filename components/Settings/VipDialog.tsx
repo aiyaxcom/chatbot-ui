@@ -37,7 +37,7 @@ export const VipDialog: FC<Props> = ({ open, onClose }) => {
         {membership: '黄金会员', period: '1月', description: '描述', price: '99元', link: `${serverUrl}/purchase/product/3`},
         {membership: '白银会员', period: '1天', description: '描述', price: '5元', link: `${serverUrl}/purchase/product/4`},
         {membership: '白银会员', period: '1周', description: '描述', price: '9元', link: `${serverUrl}/purchase/product/5`},
-        {membership: '白银会员', period: '1月', description: '描述', price: '19元', link: `${serverUrl}/purchase/product/6`},
+        {membership: '白银会员', period: '1月', description: '描述', price: '19元', link: `${serverUrl}/purchase/product/6`, onSale: true},
     ];
 
     const benefits = [
@@ -66,6 +66,13 @@ export const VipDialog: FC<Props> = ({ open, onClose }) => {
             title: '价格',
             dataIndex: 'price',
             key: 'price',
+            render: (text: string, record: any) => (
+                // 如果onSale=true, 那么在价格后面加个红色的降价标记
+                <div className="flex items-center">
+                    {text}
+                    {record.onSale && <div className="absolute top-0 right-0 text-2xs bg-red-500 text-white px-1 py-0.5 rounded-bl-md">降价啦!</div>}
+                </div>
+            ),
             className: className
         },
         {
