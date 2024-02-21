@@ -9,6 +9,8 @@ import { getSettings, saveSettings } from '@/utils/app/settings';
 import { Settings } from '@/types/settings';
 
 import HomeContext from '@/pages/api/home/home.context';
+import {Import} from "@/components/Settings/Import";
+import ChatbarContext from "@/components/Chatbar/Chatbar.context";
 
 interface Props {
   open: boolean;
@@ -22,6 +24,10 @@ export const SettingDialog: FC<Props> = ({ open, onClose }) => {
     initialState: settings,
   });
   const { dispatch: homeDispatch } = useContext(HomeContext);
+  const {
+    handleImportConversations,
+    handleExportData,
+  } = useContext(ChatbarContext);
   const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -65,37 +71,61 @@ export const SettingDialog: FC<Props> = ({ open, onClose }) => {
 
           <div
             ref={modalRef}
-            className="dark:border-netural-400 inline-block max-h-[400px] transform overflow-y-auto rounded-lg border border-gray-300 bg-white px-4 pt-5 pb-4 text-left align-bottom shadow-xl transition-all dark:bg-[#202123] sm:my-8 sm:max-h-[600px] sm:w-full sm:max-w-lg sm:p-6 sm:align-middle"
+            className="dark:border-netural-400 inline-block max-h-[400px] transform overflow-y-auto rounded-lg border border-gray-300 bg-white px-4 pt-5 pb-4 text-left align-bottom shadow-xl transition-all dark:bg-[#202123] sm:my-8 sm:max-h-[600px] w-full sm:max-w-lg sm:p-6 sm:align-middle"
             role="dialog"
           >
             <div className="text-lg pb-4 font-bold text-black dark:text-neutral-200">
               {t('Settings')}
             </div>
 
-            <div className="text-sm font-bold mb-2 text-black dark:text-neutral-200">
-              {t('Theme')}
+            <div className="flex items-center justify-between py-3 border-b">
+              <div className="text-sm font-bold text-black dark:text-neutral-200">
+                {t('Theme')}
+              </div>
+
+              <select
+                  className="cursor-pointer bg-transparent p-2 text-neutral-700 dark:text-neutral-200"
+                  value={state.theme}
+                  onChange={(event) => {
+                    dispatch({field: 'theme', value: event.target.value})
+                    state.theme = event.target.value === 'dark' ? 'dark' : 'light';
+                    handleSave();
+                  }}
+              >
+                <option value="dark">{t('Dark mode')}</option>
+                <option value="light">{t('Light mode')}</option>
+              </select>
             </div>
 
-            <select
-              className="w-full cursor-pointer bg-transparent p-2 text-neutral-700 dark:text-neutral-200"
-              value={state.theme}
-              onChange={(event) =>
-                dispatch({ field: 'theme', value: event.target.value })
-              }
-            >
-              <option value="dark">{t('Dark mode')}</option>
-              <option value="light">{t('Light mode')}</option>
-            </select>
+            <div className="flex items-center justify-between py-3 border-b">
+              <div className="text-sm font-bold text-black dark:text-neutral-200">
+                {t('Import data')}
+              </div>
+
+              <Import onImport={handleImportConversations}/>
+            </div>
+
+            <div className="flex items-center justify-between py-3">
+              <div className="text-sm font-bold text-black dark:text-neutral-200">
+                {t('Export data')}
+              </div>
+
+                <button
+                    className="px-4 py-2 text-black hover:text-white dark:text-white border rounded shadow hover:bg-gray-700 transition-colors duration-200"
+                    onClick={() => handleExportData()}
+                >
+                    <span>{t('Export')}</span>
+                </button>
+            </div>
 
             <button
               type="button"
-              className="w-full px-4 py-2 mt-6 border rounded-lg shadow border-neutral-500 text-neutral-900 hover:bg-neutral-100 focus:outline-none dark:border-neutral-800 dark:border-opacity-50 dark:bg-white dark:text-black dark:hover:bg-neutral-300"
+              className="w-full px-4 py-2 mt-6 border rounded-lg shadow border-neutral-500 text-neutral-900 hover:bg-neutral-100 focus:outline-none  dark:border-neutral-800 dark:border-opacity-50 dark:bg-gray-600 dark:text-white dark:hover:bg-neutral-500"
               onClick={() => {
-                handleSave();
                 onClose();
               }}
             >
-              {t('Save')}
+              {t('Close')}
             </button>
           </div>
         </div>

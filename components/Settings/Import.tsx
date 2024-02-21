@@ -12,7 +12,7 @@ interface Props {
 }
 
 export const Import: FC<Props> = ({ onImport }) => {
-  const { t } = useTranslation('sidebar');
+  const { t } = useTranslation('settings');
   return (
     <>
       <input
@@ -34,18 +34,19 @@ export const Import: FC<Props> = ({ onImport }) => {
         }}
       />
 
-      <SidebarButton
-        text={t('Import data')}
-        icon={<IconFileImport size={18} />}
-        onClick={() => {
-          const importFile = document.querySelector(
-            '#import-file',
-          ) as HTMLInputElement;
-          if (importFile) {
-            importFile.click();
-          }
-        }}
-      />
+        <button
+            className="px-4 py-2 text-black hover:text-white dark:text-white border rounded shadow hover:bg-gray-700 transition-colors duration-200"
+            onClick={() => {
+                const importFile = document.querySelector(
+                    '#import-file',
+                ) as HTMLInputElement;
+                if (importFile) {
+                    importFile.click();
+                }
+            }}
+        >
+            <span>{t('Import')}</span>
+        </button>
     </>
   );
 };
