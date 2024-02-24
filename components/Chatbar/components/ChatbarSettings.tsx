@@ -3,7 +3,7 @@ import {
     IconSettings,
     IconVip,
     IconLogout,
-    IconBrandWechat
+    IconBrandWechat, IconUser
 } from '@tabler/icons-react';
 import { useContext, useState } from 'react';
 
@@ -43,6 +43,7 @@ export const ChatbarSettings = () => {
   } = useContext(ChatbarContext);
 
   const cookieDomain = localStorage.getItem('cookieDomain');
+  const serverUrl = Cookies.get('serverUrl');
 
   const setIsVipOpen = (show: boolean) => {
       homeDispatch({ field: 'showVipDialog', value: show });
@@ -60,12 +61,6 @@ export const ChatbarSettings = () => {
       {/*  text={t('Export data')}*/}
       {/*  icon={<IconFileExport size={18} />}*/}
       {/*  onClick={() => handleExportData()}*/}
-      {/*/>*/}
-
-      {/*<SidebarButton*/}
-      {/*    text={t('User manual')}*/}
-      {/*    icon={<IconNotebook size={18}/>}*/}
-      {/*    onClick={ () => window.open(CHATBOT_USER_MANUAL_PAGE, '_blank')}*/}
       {/*/>*/}
 
         <SidebarButton
@@ -89,6 +84,16 @@ export const ChatbarSettings = () => {
             icon={<IconSettings size={18} />}
             onClick={() => setIsSettingDialog(true)}
         />
+
+        <SidebarButton
+            text={t('My Account')}
+            icon={<IconUser size={18}/>}
+            onClick={ () => window.open(`${serverUrl}/account/`, '_blank')}
+        >
+            <div className="absolute right-0 text-2xs bg-red-500 text-white px-1 py-0.5 rounded-md">
+                可开票!
+            </div>
+        </SidebarButton>
 
         <SidebarButton
             text={t('Logout')}
