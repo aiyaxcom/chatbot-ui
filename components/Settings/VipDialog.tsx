@@ -41,7 +41,7 @@ export const VipDialog: FC<Props> = ({ open, onClose }) => {
     ];
 
     const benefits = [
-        {type: '基础版', nonMember: '5次/日', vipSilver: '60次/日', vipGold: '60次/日'},
+        {type: '基础版', nonMember: '2次/日', vipSilver: '60次/日', vipGold: '60次/日'},
         {type: '高级版', nonMember: '--', vipSilver: '--', vipGold: '20次/日'},
     ];
 
