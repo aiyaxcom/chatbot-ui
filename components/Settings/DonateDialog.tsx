@@ -27,8 +27,6 @@ export const DonateDialog: FC<Props> = ({ open, onClose }) => {
                         </div>
 
                         <div className="mb-6 text-black dark:text-neutral-200">
-                            <p>{t('AIYAX is committed to providing free basic AI chat services in the long term. The costs for API calls have been covered independently. Donations are appreciated to support the operators.')}</p>
-                            <br/>
                             <p>{t('Scan the QR code below using Wechat to make a donation:')}</p>
                         </div>
 
