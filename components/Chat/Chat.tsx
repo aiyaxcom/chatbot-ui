@@ -32,6 +32,7 @@ import { ModelSelect } from './ModelSelect';
 import { SystemPrompt } from './SystemPrompt';
 import { TemperatureSlider } from './Temperature';
 import { MemoizedChatMessage } from './MemoizedChatMessage';
+import Cookies from "js-cookie";
 
 interface Props {
   stopConversationRef: MutableRefObject<boolean>;
@@ -63,6 +64,7 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const member = Cookies.get('member') === 'true';
 
   const toggleMoreOptions = () => {
     setShowMoreOptions(!showMoreOptions);
@@ -316,6 +318,12 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
 
   return (
     <div className="relative flex-1 overflow-hidden bg-white dark:bg-[#343541]">
+      {
+        !member && (
+          <div className="bg-gray-600 dark:bg-gray-600 p-2 text-center">
+            非会员可享每日两次免费问答
+          </div>)
+      }
       {modelError ? (
         <ErrorMessageDiv error={modelError} />
       ) : (
