@@ -347,20 +347,20 @@ export const ChatInput = ({
           )}
         </div>
       </div>
-      <div className="px-3 pt-2 pb-3 text-center text-[12px] text-black/50 dark:text-white/50 md:px-4 md:pt-3 md:pb-6">
-        <a
-          href={CHATBOT_HOME_PAGE}
-          target="_blank"
-          rel="noreferrer"
-          className="underline"
-        >
-          {CHATBOT_BRAND_NAME}
-        </a>
-        .{' '}
-        {t(
-          "AIYAX aims to provide a stable AI chat service. It strives to be easy to use, stable in service.",
-        )}
-      </div>
+      {/*<div className="px-3 pt-2 pb-3 text-center text-[12px] text-black/50 dark:text-white/50 md:px-4 md:pt-3 md:pb-6">*/}
+      {/*  <a*/}
+      {/*    href={CHATBOT_HOME_PAGE}*/}
+      {/*    target="_blank"*/}
+      {/*    rel="noreferrer"*/}
+      {/*    className="underline"*/}
+      {/*  >*/}
+      {/*    {CHATBOT_BRAND_NAME}*/}
+      {/*  </a>*/}
+      {/*  .{' '}*/}
+      {/*  {t(*/}
+      {/*    "AIYAX aims to provide a stable AI chat service. It strives to be easy to use, stable in service.",*/}
+      {/*  )}*/}
+      {/*</div>*/}
     </div>
   );
 };

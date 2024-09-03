@@ -32,12 +32,12 @@ export const VipDialog: FC<Props> = ({ open, onClose }) => {
     const serverUrl = Cookies.get('serverUrl');
 
     const products = [
-        {membership: '黄金会员', period: '1天', description: '描述', price: '7元', link: `${serverUrl}/purchase/product/1`},
-        {membership: '黄金会员', period: '1周', description: '描述', price: '25元', link: `${serverUrl}/purchase/product/2`},
-        {membership: '黄金会员', period: '1月', description: '描述', price: '59元', link: `${serverUrl}/purchase/product/3`},
-        {membership: '白银会员', period: '1天', description: '描述', price: '3元', link: `${serverUrl}/purchase/product/4`, onSale: true},
-        {membership: '白银会员', period: '1周', description: '描述', price: '5元', link: `${serverUrl}/purchase/product/5`, onSale: true},
-        {membership: '白银会员', period: '1月', description: '描述', price: '9元', link: `${serverUrl}/purchase/product/6`, onSale: true},
+        {membership: '白银会员', period: '月卡', description: '描述', price: '9元', link: `${serverUrl}/purchase/product/6`, onSale: true},
+        {membership: '白银会员', period: '周卡', description: '描述', price: '5元', link: `${serverUrl}/purchase/product/5`, onSale: true},
+        {membership: '白银会员', period: '天卡', description: '描述', price: '3元', link: `${serverUrl}/purchase/product/4`, onSale: true},
+        {membership: '黄金会员', period: '月卡', description: '描述', price: '59元', link: `${serverUrl}/purchase/product/3`},
+        {membership: '黄金会员', period: '周卡', description: '描述', price: '25元', link: `${serverUrl}/purchase/product/2`},
+        {membership: '黄金会员', period: '天卡', description: '描述', price: '7元', link: `${serverUrl}/purchase/product/1`},
     ];
 
     const benefits = [
