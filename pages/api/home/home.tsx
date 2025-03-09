@@ -311,7 +311,7 @@ const Home = ({
       dispatch({ field: 'conversations', value: cleanedConversationHistory });
     }
 
-    const selectedConversation = localStorage.getItem('selectedConversation');
+    const selectedConversation = null;//localStorage.getItem('selectedConversation');
     if (selectedConversation) {
       const parsedSelectedConversation: Conversation =
         JSON.parse(selectedConversation);
