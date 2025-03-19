@@ -38,6 +38,12 @@ interface Props {
   stopConversationRef: MutableRefObject<boolean>;
 }
 
+interface DeltaResponseContent {
+    content: string;
+    reasoningContent: string;
+    done: boolean;
+}
+
 export const Chat = memo(({ stopConversationRef }: Props) => {
   const { t } = useTranslation('chat');
 
@@ -160,6 +166,7 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
           const decoder = new TextDecoder();
           let done = false;
           let isFirst = true;
+          let isReasoning = false;
           let text = '';
           while (!done) {
             if (stopConversationRef.current === true) {
@@ -175,7 +182,26 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
             values.forEach((val) => {
               const formattedValue = val.replace(/\n\n$/, '');
               if (formattedValue !== '' && formattedValue !== '[DONE]') {
-                text += formattedValue;
+                const deltaResponse: DeltaResponseContent = JSON.parse(formattedValue);
+                if (deltaResponse.reasoningContent) {
+                  if (!isReasoning) {
+                    isReasoning = true;
+                  }
+                  if (isFirst) {
+                    text += '> ';
+                  }
+                  text += `${deltaResponse.reasoningContent}`;
+                  if (deltaResponse.reasoningContent.endsWith('\n')) {
+                    text += '> ';
+                  }
+                }
+                if (deltaResponse.content) {
+                  if (isReasoning) {
+                    text += '\n';
+                    isReasoning = false;
+                  }
+                  text += deltaResponse.content;
+                }
               }
             });
             if (isFirst) {
