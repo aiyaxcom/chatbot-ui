@@ -180,9 +180,8 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
             const values = chunkValue.split('data:');
 
             values.forEach((val) => {
-              const formattedValue = val.replace(/\n\n$/, '');
-              if (formattedValue !== '' && formattedValue !== '[DONE]') {
-                const deltaResponse: DeltaResponseContent = JSON.parse(formattedValue);
+              if (val !== '' && val !== '[DONE]') {
+                const deltaResponse: DeltaResponseContent = JSON.parse(val);
                 if (deltaResponse.reasoningContent) {
                   if (!isReasoning) {
                     isReasoning = true;
@@ -190,14 +189,13 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
                   if (isFirst) {
                     text += '> ';
                   }
-                  text += `${deltaResponse.reasoningContent}`;
-                  if (deltaResponse.reasoningContent.endsWith('\n')) {
-                    text += '> ';
-                  }
+                  let reasoningContent = deltaResponse.reasoningContent.replace(/\n/g, '\n> ');
+
+                  text += reasoningContent;
                 }
                 if (deltaResponse.content) {
                   if (isReasoning) {
-                    text += '\n';
+                    text += '\n\n';
                     isReasoning = false;
                   }
                   text += deltaResponse.content;
